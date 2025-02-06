@@ -40,7 +40,61 @@ namespace AM.ApplicationCore.Services
             return dates;
 
         }
-       
+        public void GetFlights(string filterType, string filterValue)
+        {
+            switch (filterType)
+            {
+                case "Departure":
+                    for(int i = 0;i<flights.Count;i++)
+                    {
+                        if (flights[i].Departure == filterValue)
+                        {
+                            Console.WriteLine(flights[i]);
+                        }
+                    }
+                    
+                    break;
+                case "Destination":
+                    for (int i = 0; i < flights.Count; i++)
+                    {
+                        if (flights[i].Destination == filterValue)
+                        {
+                            Console.WriteLine(flights[i]);
+                        }
+                    }
+                    break;
+                case "EffectiveArrival":
+                    for (int i = 0; i < flights.Count; i++)
+                    {
+                        if (flights[i].EffectiveArrival == DateTime.Parse(filterValue))
+                        {
+                            Console.WriteLine(flights[i]);
+                        }
+                    }
+                    break;
+
+                case "EstimatedDuration":
+                    for (int i = 0; i < flights.Count; i++)
+                    {
+                        if (flights[i].EstimatedDuration == int.Parse(filterValue))
+                        {
+                            Console.WriteLine(flights[i]);
+                        }
+                    }
+                    break;
+                case "FlightDate":
+                    for (int i = 0; i < flights.Count; i++)
+                    {
+                        if (flights[i].FlightDate == DateTime.Parse(filterValue))
+                        {
+                            Console.WriteLine(flights[i]);
+                        }
+                    }
+                    break;
+            }
+        }
+
+
 
     }
 
