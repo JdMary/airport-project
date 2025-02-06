@@ -11,5 +11,11 @@ namespace AM.ApplicationCore.Domaines
         public DateTime EmploymentDate { get; set; }
         public string Function { get; set; }
         public double Salary { get; set; }
+        public override void PassenerType()
+        {
+            //base signifies super like in java
+            base.PassenerType();
+            Console.WriteLine("I am staff ");
+        }
     }
 }
