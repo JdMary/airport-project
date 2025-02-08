@@ -93,10 +93,49 @@ namespace AM.ApplicationCore.Services
                     break;
             }
         }
+        public void GetFlightsEnumerable(string filterType, string filterValue)
+        {
+            IEnumerable<Flight> filteredFlights = flights;
+
+            switch (filterType)
+            {
+                case "Departure":
+                    filteredFlights = flights.Where(f => f.Departure == filterValue);
+                    break;
+                case "Destination":
+                    filteredFlights = flights.Where(f => f.Destination == filterValue);
+                    break;
+                case "EffectiveArrival":
+                    if (DateTime.TryParse(filterValue, out DateTime arrivalDate))
+                        filteredFlights = flights.Where(f => f.EffectiveArrival == arrivalDate);
+                    else
+                        Console.WriteLine("Invalid date format for EffectiveArrival.");
+                    break;
+                case "EstimatedDuration":
+                    if (int.TryParse(filterValue, out int duration))
+                        filteredFlights = flights.Where(f => f.EstimatedDuration == duration);
+                    else
+                        Console.WriteLine("Invalid number format for EstimatedDuration.");
+                    break;
+                case "FlightDate":
+                    if (DateTime.TryParse(filterValue, out DateTime flightDate))
+                        filteredFlights = flights.Where(f => f.FlightDate == flightDate);
+                    else
+                        Console.WriteLine("Invalid date format for FlightDate.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid filter type.");
+                    return;
+            }
+
+            foreach (var flight in filteredFlights)
+            {
+                Console.WriteLine(flight);
+            }
 
 
 
-    }
+        }
 
 
 }
