@@ -15,16 +15,16 @@ namespace AM.ApplicationCore.Services
         public List<DateTime> getFlightDates(string destination)
         {
             List<DateTime> dates = new List<DateTime>();
-            for(int i =0;i<flights.Count;i++)
+            for (int i = 0; i < flights.Count; i++)
             {
-                if(flights[i].Destination == destination)
+                if (flights[i].Destination == destination)
                 {
                     dates.Add(flights[i].FlightDate);
 
                 }
 
             }
-            return dates;        
+            return dates;
         }
         public List<DateTime> getFlightDatesWithForeach(string destination)
         {
@@ -45,14 +45,14 @@ namespace AM.ApplicationCore.Services
             switch (filterType)
             {
                 case "Departure":
-                    for(int i = 0;i<flights.Count;i++)
+                    for (int i = 0; i < flights.Count; i++)
                     {
                         if (flights[i].Departure == filterValue)
                         {
                             Console.WriteLine(flights[i]);
                         }
                     }
-                    
+
                     break;
                 case "Destination":
                     for (int i = 0; i < flights.Count; i++)
@@ -136,6 +136,7 @@ namespace AM.ApplicationCore.Services
 
 
         }
+    }
 
 
 }
