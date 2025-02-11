@@ -10,9 +10,9 @@ namespace AM.ApplicationCore.Services
 {
     public class FlightMethods : IFlightMethods
     {
-        public List<Flight> flights = new List<Flight>();
-
-        public List<DateTime> getFlightDates(string destination)
+        public List<Flight> flights {  get; set;} = new List<Flight>();
+ 
+public List<DateTime> getFlightDates(string destination)
         {
             List<DateTime> dates = new List<DateTime>();
             for (int i = 0; i < flights.Count; i++)
@@ -136,6 +136,24 @@ namespace AM.ApplicationCore.Services
 
 
         }
+        // Simple LINQ function example
+        public List<string> GetAllDestinations()
+        {
+            return flights.Select(f => f.Destination).Distinct().ToList();
+        }
+
+        // Another LINQ function example
+        public Flight GetLongestDurationFlight()
+        {
+            return flights.OrderByDescending(f => f.EstimatedDuration).FirstOrDefault();
+        }
+
+        // Different LINQ function example
+        public double GetAverageFlightDuration()
+        {
+            return flights.Average(f => f.EstimatedDuration);
+        }
+
     }
 
 
