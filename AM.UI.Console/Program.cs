@@ -44,3 +44,7 @@ Console.WriteLine("SHOW FLIGHT DETAILS");
 fm.showFlightDetails(TestData.BoingPlane);
 
 Console.WriteLine(fm.ProgrammedFlightNumber(DateTime.Parse("2022-01-01")));
+foreach (Passenger pass in fm.SeniorTravellers(TestData.flight1))
+{
+    Console.WriteLine(pass.BirthDate);
+}
