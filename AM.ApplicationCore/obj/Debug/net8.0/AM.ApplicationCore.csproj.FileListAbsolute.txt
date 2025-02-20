@@ -10,3 +10,4 @@ C:\Users\marye\source\repos\AM.UI.Console\AM.ApplicationCore\obj\Debug\net8.0\AM
 C:\Users\marye\source\repos\AM.UI.Console\AM.ApplicationCore\obj\Debug\net8.0\refint\AM.ApplicationCore.dll
 C:\Users\marye\source\repos\AM.UI.Console\AM.ApplicationCore\obj\Debug\net8.0\AM.ApplicationCore.pdb
 C:\Users\marye\source\repos\AM.UI.Console\AM.ApplicationCore\obj\Debug\net8.0\ref\AM.ApplicationCore.dll
+C:\Users\marye\source\repos\AM.UI.Console\AM.ApplicationCore\obj\Debug\net8.0\AM.ApplicationCore.csproj.AssemblyReference.cache

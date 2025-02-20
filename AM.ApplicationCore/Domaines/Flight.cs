@@ -14,9 +14,10 @@ namespace AM.ApplicationCore.Domaines
         public DateTime EffectiveArrival { get; set; }
         public int EstimatedDuration { get; set; }
         public DateTime FlightDate {  get; set; }
-        public int FlighId {  get; set; }
+        public int FlightId {  get; set; }
         //propriéttés de Naviguation
         public Plane Plane { get; set; }
         public ICollection<Passenger> Passengers {  get; set; }
+        public string AirlineLogo{ get; set; }
     }
 }

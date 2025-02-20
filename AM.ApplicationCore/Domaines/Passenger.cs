@@ -9,6 +9,7 @@ namespace AM.ApplicationCore.Domaines
 {
     public class Passenger
     {
+        
         public DateTime BirthDate { get; set; }
         public string EmailAddress {  get; set; }
         public string FirstName {  get; set; }

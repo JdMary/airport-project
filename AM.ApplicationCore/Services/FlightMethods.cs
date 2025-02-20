@@ -168,7 +168,7 @@ namespace AM.ApplicationCore.Services
 
 
 
-            var query = Flights.GroupBy(f => f.Destination);
+            var query = flights.GroupBy(f => f.Destination);
             foreach (var group in query)
             {
                 Console.WriteLine("Destination: " + group.Key);
