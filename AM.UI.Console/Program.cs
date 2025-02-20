@@ -31,20 +31,27 @@ Console.WriteLine("Hello, World!");
 //Console.WriteLine(p2.checkProfileCombined("Tabib", "Rami"));
 //staff.PassenerType();
 /////instance of service
-FlightMethods fm = new FlightMethods();
-fm.flights = TestData.listFlights;
-List<DateTime> dates = fm.getFlightDates("Paris");
-foreach (DateTime d in dates)
+//FlightMethods fm = new FlightMethods();
+//fm.flights = TestData.listFlights;
+//List<DateTime> dates = fm.getFlightDates("Paris");
+//foreach (DateTime d in dates)
+//{
+//    Console.WriteLine(d.ToString());
+//}
+
+//Console.WriteLine("SHOW FLIGHT DETAILS");
+
+//fm.showFlightDetails(TestData.BoingPlane);
+
+//Console.WriteLine(fm.ProgrammedFlightNumber(DateTime.Parse("2022-01-01")));
+//foreach (Passenger passenger in fm.SeniorTravellers(TestData.flight1))
+//{
+//    Console.WriteLine(passenger.BirthDate);
+//}
+Passenger pass = new Passenger
 {
-    Console.WriteLine(d.ToString());
-}
-
-Console.WriteLine("SHOW FLIGHT DETAILS");
-
-fm.showFlightDetails(TestData.BoingPlane);
-
-Console.WriteLine(fm.ProgrammedFlightNumber(DateTime.Parse("2022-01-01")));
-foreach (Passenger pass in fm.SeniorTravellers(TestData.flight1))
-{
-    Console.WriteLine(pass.BirthDate);
-}
+    FirstName="maryem",
+    LastName = "jerad",
+};
+pass.UpperFullName();
+System.Console.WriteLine(pass.FirstName);

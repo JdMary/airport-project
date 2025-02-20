@@ -84,34 +84,15 @@ namespace AM.ApplicationCore.Services
        
 
 
-
-       
-        //// Simple LINQ function example
-        //public List<string> GetAllDestinations()
-        //{
-        //    return flights.Select(f => f.Destination).Distinct().ToList();
-        //}
-
-        //// Another LINQ function example
-        //public Flight GetLongestDurationFlight()
-        //{
-        //    return flights.OrderByDescending(f => f.EstimatedDuration).FirstOrDefault();
-        //}
-
-        //// Different LINQ function example
-        //public double GetAverageFlightDuration()
-        //{
-        //    return flights.Average(f => f.EstimatedDuration);
-        //}
-
         public void showFlightDetails(Plane plane)
         {
 
-            var query = from f in flights
-                        where f.Plane == plane
-                        select new { f.FlightDate, f.Destination };
-            foreach (var flight in query)
-                Console.WriteLine("Destination :" + flight.Destination + " FlightDate : " + flight.FlightDate);
+            //var query = from f in flights
+            //               where f.Plane == plane
+            //               select new { f.FlightDate, f.Destination };
+            //   foreach (var flight in query)
+            //       Console.WriteLine("Destination :" + flight.Destination + " FlightDate : " + flight.FlightDate);
+            flights.Where(f => f.Plane == plane).ToList().ForEach(f => Console.WriteLine("Destination: " + f.Destination + " | FlightDate: " + f.FlightDate));
 
         }
 
@@ -121,27 +102,38 @@ namespace AM.ApplicationCore.Services
             //            where f.FlightDate.Date == startDate || f.FlightDate.Date < startDate.AddDays(7)
             //            select f).Count();
 
-            var query = from f in flights
-                        where DateTime.Compare(startDate, f.FlightDate) <= 0 && (f.FlightDate - startDate).TotalDays <= 7
-                        select f;
-            return query.Count();
+
+
+            //var query = from f in flights
+            //            where DateTime.Compare(startDate, f.FlightDate) <= 0 && (f.FlightDate - startDate).TotalDays <= 7
+            //            select f;
+            //return query.Count();
+
+            return flights.Where(f => DateTime.Compare(startDate, f.FlightDate) <= 0 && DateTime.Compare(f.FlightDate, startDate.AddDays(7)) <= 0).Count();
+
+
 
         }
 
         public double DurationAverage(string destination)
         {
-            var q = from f in flights
-                    where f.Destination == destination
-                    select f.EstimatedDuration;
-            return q.Average();
+            //var q = from f in flights
+            //        where f.Destination == destination
+            //        select f.EstimatedDuration;
+            //return q.Average();
+
+            return flights.Where(f => f.Destination == destination).Select(f => f.EstimatedDuration).Average();
+
         }
 
         public IEnumerable<Flight> OrderedDurationFlights()
         {
-            var q = from f in flights
-                    orderby f.EstimatedDuration descending
-                    select f;
-            return q;
+            //var q = from f in flights
+            //        orderby f.EstimatedDuration descending
+            //        select f;
+            //return q;
+            return flights.OrderByDescending(f => f.EstimatedDuration);
+
 
         }
 
@@ -152,25 +144,41 @@ namespace AM.ApplicationCore.Services
             //        orderby item.BirthDate
             //        select item;
 
-            var q = from item in flight.Passengers.OfType<Traveller>()
-                    orderby item.BirthDate
-                    select item;
-            return q.Take(3);
+            //var q = from item in flight.Passengers.OfType<Traveller>()
+            //        orderby item.BirthDate
+            //        select item;
+            //return q.Take(3);
+
+            return flight.Passengers.OfType<Traveller>().OrderBy(p => p.BirthDate).Take(3);
+
         }
         public void DestinationGroupedFlights()
         {
             //IEnumerable<IGrouping<string, Flight>> q = from f in flights.GroupBy(f => f.Destination);
-            var query = from f in flights
-                        group f by f.Destination;
+            //var query = from f in flights
+            //            group f by f.Destination;
+            //foreach (var group in query)
+            //{
+            //    Console.WriteLine("destination: "+group.Key);
+            //    foreach (var f in group)
+            //    {
+            //        Console.WriteLine("Decollage: " + f.FlightDate);
+            //    }
+            //}
+
+
+
+            var query = Flights.GroupBy(f => f.Destination);
             foreach (var group in query)
             {
-                Console.WriteLine("destination: "+group.Key);
+                Console.WriteLine("Destination: " + group.Key);
                 foreach (var f in group)
                 {
-                    Console.WriteLine("Decollage: " + f.FlightDate);
+                    Console.WriteLine("Décollage:  " + f.FlightDate);
                 }
             }
         }
+
     }
 
 
