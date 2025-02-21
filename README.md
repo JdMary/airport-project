@@ -18,3 +18,5 @@ public void showFlightDetails(Plane plane)
 ```
 + Where(f => f.Plane == plane) → Filters the flights collection based on the given plane.
 + Select(f => new { f.FlightDate, f.Destination }) → Extracts only necessary properties.
+
+string connectionString = "Server=your_server;Database=your_database;User Id=your_username;Password=your_password;";
