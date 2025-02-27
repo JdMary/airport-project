@@ -4,6 +4,7 @@ using AM.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AM.Infrastructure.Migrations
 {
     [DbContext(typeof(AMContext))]
-    partial class AMContextModelSnapshot : ModelSnapshot
+    [Migration("20250227130330_s6")]
+    partial class s6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,21 +76,23 @@ namespace AM.Infrastructure.Migrations
                     b.Property<DateTime>("FlightDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PlaneFk")
+                    b.Property<int>("PlaneId")
                         .HasColumnType("int");
 
                     b.HasKey("FlightId");
 
-                    b.HasIndex("PlaneFk");
+                    b.HasIndex("PlaneId");
 
                     b.ToTable("Flights");
                 });
 
             modelBuilder.Entity("AM.ApplicationCore.Domaines.Passenger", b =>
                 {
-                    b.Property<string>("PassportNumber")
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -103,17 +108,20 @@ namespace AM.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassportNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TelNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("PassportNumber");
+                    b.HasKey("Id");
 
                     b.ToTable("Passengers");
 
@@ -127,12 +135,12 @@ namespace AM.Infrastructure.Migrations
                     b.Property<int>("FlightsFlightId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PassengersPassportNumber")
-                        .HasColumnType("nvarchar(7)");
+                    b.Property<int>("PassengersId")
+                        .HasColumnType("int");
 
-                    b.HasKey("FlightsFlightId", "PassengersPassportNumber");
+                    b.HasKey("FlightsFlightId", "PassengersId");
 
-                    b.HasIndex("PassengersPassportNumber");
+                    b.HasIndex("PassengersId");
 
                     b.ToTable("FlightPassenger");
                 });
@@ -173,7 +181,7 @@ namespace AM.Infrastructure.Migrations
                 {
                     b.HasOne("AM.ApplicationCore.Domaine.Plane", "Plane")
                         .WithMany("Flights")
-                        .HasForeignKey("PlaneFk")
+                        .HasForeignKey("PlaneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -190,7 +198,7 @@ namespace AM.Infrastructure.Migrations
 
                     b.HasOne("AM.ApplicationCore.Domaines.Passenger", null)
                         .WithMany()
-                        .HasForeignKey("PassengersPassportNumber")
+                        .HasForeignKey("PassengersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
