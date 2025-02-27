@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AM.ApplicationCore.Domaine;
 using AM.ApplicationCore.Domaines;
+using AM.Infrastructure.configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace AM.Infrastructure
@@ -22,7 +23,20 @@ namespace AM.Infrastructure
         { 
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb; 
                                       Initial Catalog=4Arctic4;Integrated Security=true"); 
-            base.OnConfiguring(optionsBuilder); }
+            base.OnConfiguring(optionsBuilder); 
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            //1st method avec classe
+            modelBuilder.ApplyConfiguration(new PlaneConfiguration());
+            //2nd method: without configuration class
+            modelBuilder.Entity<Plane>()
+                        .ToTable("MyPlanes")
+                        .Property(c => c.Capacity)
+                        .HasColumnName("MyCapacity");
+            modelBuilder.Entity<Plane>().HasKey(c => c.PlaneId);
+        }
 
     }
 }
